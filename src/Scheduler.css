@@ -1,0 +1,197 @@
+/* GLOBAL STYLES */
+body{
+  margin: 0;
+}
+
+.scheduler{
+  --well-blue: hsla(220, 100%, 70%, 1);
+  --well-blue-light: hsla(220, 100%, 80%, 1);
+  --valid-green: hsla(110, 100%, 70%, 1);
+  --invalid-red: hsla(0, 100%, 70%);
+
+  --field-line-height: 3em;
+  --header-height: 2em;
+  --calendar-min-width: 300px;
+  --calendar-max-width: 350px;
+  --time-slot-label-width: 80px;
+
+  font-family: Optima, Verdana, sans-serif;
+  font-size: 14px;
+
+  max-width: 700px;
+  height: calc(100vh - var(--header-height));
+  max-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduler__form{
+  display: flex;
+  flex: 1 0 auto;
+  height: 200px;
+}
+
+.scheduler__field-wrapper{
+  flex: 0 1 400px;
+  padding: 5px;
+}
+
+.scheduler__calendar{
+  flex: 1 1 var(--calendar-min-width);
+  overflow-y: scroll;
+  min-width: var(--calendar-min-width);
+  max-width: var(--calendar-max-width);
+  padding: 5px;
+}
+
+/* COMPONENTS */
+
+/* Header */
+.scheduler__header {
+  flex: 0 1 auto;
+  height: var(--header-height);
+  color: white;
+  background-color: var(--well-blue);
+  text-align: center;
+  vertical-align: middle;
+  margin: 0px 0px 0.5em 0px;
+  padding: .5em;
+}
+.scheduler__header h1{
+  font-size: calc(1em + 1vmin);
+  margin: 0px;
+}
+
+/* Input Fields */
+ul.scheduler__fields{
+  list-style-type: none;
+  margin: 0;
+  padding: 0px;
+}
+
+li.scheduler__field{
+  display: flex;
+  flex-flow: row wrap;
+  vertical-align: middle;
+  line-height: var(--field-line-height);
+  padding: 0em 0em 1em 0em;
+}
+
+.field__step-number{
+  background-color: var(--well-blue);
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  width: var(--field-line-height);
+  height: var(--field-line-height);
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 5px;
+  transition: background-color 1s;
+}
+.scheduler__field.valid .field__step-number{
+  background-color: var(--valid-green);
+}
+.scheduler__field.invalid .field__step-number{
+  background-color: var(--invalid-red);
+}
+
+.scheduler__input{
+  margin: 0px 0px 0px auto;
+}
+
+/*---CALENDAR---*/
+
+/* Time Slots */
+.time-slot{
+  line-height: 3em;
+  border-top: 1px lightgrey solid;
+  transition: background-color 0.5s;
+}
+.time-slot.is-open{
+  cursor: pointer;
+}
+.time-slot.is-open:hover{
+  background-color: var(--well-blue-light);
+}
+
+.time-slot__label{
+  color: dimgray;
+  box-sizing: border-box;
+  max-width: var(--time-slot-label-width);
+  padding: 4px 6px;
+  border-radius: 5px;
+  transition: color 1s, background-color 1s;
+}
+.time-slot.is-open .time-slot__label{
+  background-color: var(--well-blue-light);
+  color: white;
+}
+.appointment .time-slot__label{
+  color: white;
+}
+
+/* Appointment */
+.appointment{
+  background-color: var(--well-blue-light);
+  color: white;
+  display: block;
+  position: relative;
+  border-radius: 10px;
+  transition: background-color 1s, color 1s;
+}
+.appointment.requested{
+  background-color: var(--well-blue);
+  color: white;
+}
+
+.appointment__info{
+  font-size: 0.9em;
+  float: right;
+  box-sizing: border-box;
+  padding: 3px 5px 0px 0px;
+  max-width: calc(100% - var(--time-slot-label-width));
+}
+
+.appointment__submit, .appointment__submit_message{
+  position: absolute;
+}
+.appointment__submit{
+  background-color: var(--well-blue);
+  color: white;
+  cursor: pointer;
+  bottom: 3px;
+  right: 3px;
+  border-radius: 3px;
+}
+.appointment__submit:hover{
+  color: var(--valid-green);
+}
+.appointment__submit_message{
+  font-weight: bold;
+  color: var(--valid-green);
+  bottom: 5px;
+  right: 5px;
+}
+
+@media only screen and (max-width: 550px) {
+  .scheduler{
+    height: 100vh;
+    --field-line-height: 2em;
+  }
+  .scheduler__form{
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+  .scheduler__field-wrapper{
+    flex: 1 0 auto;
+    max-width: var(--calendar-max-width);
+  }
+  .scheduler__calendar{
+
+  }
+  li.scheduler__field{
+    padding-bottom: .5em
+  }
+}
